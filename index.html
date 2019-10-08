@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Amicability</title>
+
+<script language= "javascript">
+	function formdata() {
+		var get1 = document.getElementById('firstNum');
+		var get2 = document.getElementById('secNum');
+		var num1 = get1.value;
+		var num2 = get2.value;
+		document.write("Num1 is: " + num1 + " <br>");
+		document.write("Num2 is: " + num2 + " <br>");
+
+		retrieval(num1, num2);
+	}
+
+	function retrieval(var1, var2) {
+		//document.write("Going into operations for num1 <br>");
+		var arr1 = getFactors(var1);
+		//document.write("Going into operations for num2 <br>");
+		var arr2 = getFactors(var2);
+
+		comparison(arr1, arr2, var1, var2);
+	}
+
+	function comparison(arr1, arr2, var1, var2) {
+		var sum1 = addFactors(arr1, var1);
+		//document.write("Sum1 is: " + sum1 + " <br>");
+		var sum2 = addFactors(arr2, var2);
+		//document.write("Sum2 is: " + sum2 + " <br>");
+		if ((sum1 == var2) && (sum2 == var1)) {
+			document.write("These numbers are amicable");
+		} else {
+			document.write("These numbers are NOT amicable");
+		}
+	}
+
+	function isFactor(num,testNum) {
+		var divisible;
+		if ((num % testNum) == 0) {
+			divisible = true;
+			//document.write("Divisible <br>");
+		} else {
+			divisible = false;
+			//document.write("Not Divisible <br>");
+		}
+		return divisible;
+
+		//Test Cases
+		//num = 2, testNum = 4. divisible = false
+		//num = 280, testNum = 21. divisible = false
+		//num = 320, testNum = 8. divisible = true
+		//num = 1558, testNum = 19. divisible = true
+		//num = 2, testNum = 2. divisible = true
+	}
+
+	function showFactors(array) {
+		//document.write("Got into function <br>");
+		var n = (array.length);
+		for (i = 0; i < n; i++) {
+			document.write(array[i] + " <br>");
+		}
+
+		//Test Cases
+		//array = [1 2 3 4 6 8 12 16 24 48]. Got 1, 2, 3, 4, 6, 8, 12, 16, 24, 48
+		//array = [1 3 7 21]. Got 1 3 7 21 
+		//array = [1 7 17 119]. Got 1,7,17,119 
+	}
+
+	function getFactors(someNum) {
+		//document.write("Got into the function <br>");
+		//document.write("Number input: " + someNum + " <br>");
+		var factors = [];
+
+		for (i = 1; i <= someNum; i++) {
+			if (isFactor(someNum,i)) 
+			{
+				factors.push(i);
+			}
+		}
+		showFactors(factors);
+		return factors;
+		//for (i = 0; i < factors.length; i++) {
+		//	document.write(factors[i]);
+		//}
+
+		//Test Cases
+		//someNum = 48. Got [1 2 3 4 6 8 12 16 24 48]
+		//someNum = 21. Got [1 3 7 21]
+		//someNum = 119. Got [1 7 17 119]
+	}
+
+	function addFactors(array,inputNum) {
+		var count = 0;
+		for (var i = array.length; i--;) 
+		{
+			count+=array[i];
+		}
+		count = count - inputNum;
+		return count;
+		//document.write("The sum of the array elements is: " + count);
+
+		//Test Cases
+		//array = [1 2 3 4 6 8 12 16 24 48]. inputNum = 48. Output: count = 76
+		//array = [1 3 7 21]. inputNum = 21. Output: 11
+		//array = [1 7 17 119]. inputNum = 119. Output: 25
+	}
+</script>
+
+</head>
+
+<body>
+	<h1> Checking for Amicability </h1>
+	<p id="Testing"></p>
+	<form>
+		First Number: <input type = "text" id = "firstNum" /><br/>
+		Second Number: <input type = "text" id = "secNum" /><br/>
+		<input type = "button" value = "Check" onclick = "formdata();" />
+	</form>
+
+</body>
+
+</html>
